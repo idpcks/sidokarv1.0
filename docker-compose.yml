@@ -1,0 +1,26 @@
+services:
+  web:
+    build: .
+    container_name: sidokar-web
+    ports:
+      - "8800:80"
+    volumes:
+      - ./:/var/www/html
+    restart: unless-stopped
+
+  db:
+    image: mariadb:10.3
+    container_name: sidokar-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: yourrootpwdbhere
+      MYSQL_DATABASE: yourdbnamehere
+      MYSQL_USER: yourdbuserhere
+      MYSQL_PASSWORD: yourpwdbhere
+    ports:
+      - "3307:3306"
+    volumes:
+      - sidokar_db:/var/lib/mysql
+
+volumes:
+  sidokar_db:
